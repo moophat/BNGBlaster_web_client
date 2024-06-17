@@ -32,8 +32,6 @@ MANIFEST
 *.manifest
 
 *.spec
-#bgp_update
-*.bgp
 # /temp
 temp/
 # Installer logs
