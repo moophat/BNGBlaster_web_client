@@ -1,0 +1,41 @@
+cookie:
+  expiry_days: 1
+  key: juniper
+  name: random_cookie_name
+credentials:
+  usernames:
+    admin:
+      email: linh.nguyentuan@svtech.com.vn
+      failed_login_attempts: 0
+      logged_in: false
+      name: Admin
+      password: $2b$12$b3VR1O1FLVOgSUZy6k7KT.Hy6i6dLMHAB3qw3L1OZTQLSd6uHLp8i
+    hoanguyen:
+      email: hoa.nguyen@svtech.com.vn
+      logged_in: false
+      name: Hoa Nguyen
+      password: $2b$12$t.m1k8Ebq7A4aOSQSg8llOBVZxA43ehXEocOwSXh6t17S3ffmzn9y
+    huongphung:
+      email: huong.phung@svtech.com.vn
+      failed_login_attempts: 0
+      logged_in: false
+      name: Huong Phung
+      password: $2b$12$46NLdTbeFnYOxpRKJ3VtlOZQxkeUkCzQJmYLo8/gHj6g7S5FGbr0u
+    linhnt:
+      email: linh.nguyentuan@svtech.com.vn
+      failed_login_attempts: 0
+      logged_in: false
+      name: Nik
+      password: $2b$12$lVyD2jEi5ysP1tWDm0VpN.v2gwP7YfXhPpeLfC3YKIjayELtsuzXC
+    tudoan:
+      email: tu.doan@svtech.com.vn
+      failed_login_attempts: 0
+      logged_in: false
+      name: Tu Doan
+      password: $2b$12$rUStbIAGy/tvj/EvYIXN8umdeS3u77smmdgxYJd/.wD3ubt1BQn4e
+preauthorized:
+  emails:
+  - linh.nguyentuan@svtech.com.vncookie: null
+  expiry_days: 1
+  key: juniper
+  name: random_cookie_name

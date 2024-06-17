@@ -1,0 +1,12 @@
+---
+linhnt_bras_pppoe:
+  ppp_mru: '1492'
+  ppp_passwd: '123456'
+  ppp_retry: '30'
+  ppp_timeout: '2'
+  ppp_user: user{session-global}
+  pppoe_reconnect: 'true'
+  pppoe_session: '10'
+  pppoe_session_time: '0'
+  template: bras_pppoe.j2
+

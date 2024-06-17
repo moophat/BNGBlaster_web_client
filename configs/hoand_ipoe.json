@@ -1,0 +1,27 @@
+{
+  "interfaces": {
+    "access": [
+      {
+        "interface": "ens5.20",
+        "ipv6": false,
+        "vlan-mode": "N:1",
+        "type": "ipoe",
+        "address": "2.254.0.10",
+        "address-iter": "0.0.0.1",
+        "gateway": "2.0.0.200",
+        "stream-group-id": 400
+      }
+    ],
+    "network": [
+      {
+        "address": "2.0.0.200/8",
+        "gateway": "2.0.0.254",
+        "gateway-resolve-wait": false,
+        "interface": "ens4.20"
+      }
+    ]
+  },
+  "sessions": {
+    "count": 10
+  }
+}

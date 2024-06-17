@@ -1,0 +1,14 @@
+---
+interfaces:
+  access:
+  - authentication-protocol: PAP
+    interface: ens3
+    outer-vlan: 100
+    stream-group-id: 1
+    vlan-mode: N:1
+  network:
+  - address: 10.249.0.2/30
+    address-ipv6: 2010:1010:abab::a/113
+    gateway: 10.249.0.1
+    gateway-ipv6: 2010:1010:abab::1
+    interface: ens4.100

@@ -1,0 +1,21 @@
+{
+  "bgp": {
+    "local-address": "10.249.0.2",
+    "peer-address": "10.249.0.1",
+    "local-as": 65002,
+    "peer-as": 65001,
+    "family": [
+      "ipv4-unicast",
+      "ipv6-unicast"
+    ]
+  },
+  "interfaces": {
+    "network": [
+      {
+        "address": "10.249.0.2/30",
+        "gateway": "10.249.0.1",
+        "interface": "ens4.100"
+      }
+    ]
+  }
+}

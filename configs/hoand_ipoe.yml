@@ -1,0 +1,12 @@
+---
+hoand_ipoe:
+  ipoe_acc_addess_iter: 0.0.0.1
+  ipoe_acc_address: 2.254.0.10
+  ipoe_acc_gateway: 2.0.0.200
+  ipoe_acc_int: ens5.20
+  ipoe_nw_address_with_mask: 2.0.0.200/8
+  ipoe_nw_gateway: 2.0.0.254
+  ipoe_nw_interface: ens4.20
+  session_count: '10'
+  template: ipoe.j2
+

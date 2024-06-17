@@ -1,0 +1,28 @@
+---
+streams:
+- direction: both
+  length: 1400
+  name: IPV6PD_3M
+  pps: 5
+  priority: 192
+  start-delay: 3
+  stream-group-id: 1
+  type: ipv6pd
+- direction: both
+  length: 1400
+  name: IPV6_3M
+  network-interface: ens4.100
+  pps: 5
+  priority: 192
+  start-delay: 3
+  stream-group-id: 1
+  type: ipv6
+- direction: both
+  length: 1400
+  name: IPv4_6M
+  network-interface: ens4.100
+  pps: 5
+  priority: 192
+  start-delay: 3
+  stream-group-id: 1
+  type: ipv4

@@ -1,0 +1,8 @@
+---
+linhnt_bgp:
+  bgp_local_address: 10.249.0.2
+  bgp_local_as: '65002'
+  bgp_peer_address: 10.249.0.1
+  bgp_peer_as: '65001'
+  template: bgp.j2
+

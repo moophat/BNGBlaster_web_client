@@ -1,0 +1,79 @@
+{
+  "dhcpv6": {
+    "enable": true,
+    "rapid-commit": true
+  },
+  "ppp": {
+    "authentication": {
+      "password": "123456",
+      "retry": 30,
+      "timeout": 2,
+      "username": "user{session-global}"
+    },
+    "mru": 1492
+  },
+  "pppoe": {
+    "reconnect": true,
+    "session-time": 0,
+    "sessions": 10
+  },
+  "traffic": {
+    "stream-delay-calculation": true,
+    "stream-rate-calculation": true,
+    "udp-checksum": true
+  },
+  "streams": [
+    {
+      "direction": "both",
+      "length": 1400,
+      "name": "IPV6PD_3M",
+      "pps": 5,
+      "priority": 192,
+      "start-delay": 3,
+      "stream-group-id": 1,
+      "type": "ipv6pd"
+    },
+    {
+      "direction": "both",
+      "length": 1400,
+      "name": "IPV6_3M",
+      "network-interface": "ens4.100",
+      "pps": 5,
+      "priority": 192,
+      "start-delay": 3,
+      "stream-group-id": 1,
+      "type": "ipv6"
+    },
+    {
+      "direction": "both",
+      "length": 1400,
+      "name": "IPv4_6M",
+      "network-interface": "ens4.100",
+      "pps": 5,
+      "priority": 192,
+      "start-delay": 3,
+      "stream-group-id": 1,
+      "type": "ipv4"
+    }
+  ],
+  "interfaces": {
+    "access": [
+      {
+        "authentication-protocol": "PAP",
+        "interface": "ens3",
+        "outer-vlan": 100,
+        "stream-group-id": 1,
+        "vlan-mode": "N:1"
+      }
+    ],
+    "network": [
+      {
+        "address": "10.249.0.2/30",
+        "address-ipv6": "2010:1010:abab::a/113",
+        "gateway": "10.249.0.1",
+        "gateway-ipv6": "2010:1010:abab::1",
+        "interface": "ens4.100"
+      }
+    ]
+  }
+}

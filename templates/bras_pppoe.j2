@@ -1,0 +1,18 @@
+dhcpv6:
+  enable: true
+  rapid-commit: true
+ppp:
+  authentication:
+    password: '{{ppp_passwd}}'
+    retry: {{ppp_retry}}
+    timeout: {{ppp_timeout}}
+    username: "{{ppp_user}}"
+  mru: {{ppp_mru}}
+pppoe:
+  reconnect: {{pppoe_reconnect}}
+  session-time: {{pppoe_session_time}}
+  sessions: {{pppoe_session}}
+traffic:
+  stream-delay-calculation: true
+  stream-rate-calculation: true
+  udp-checksum: true

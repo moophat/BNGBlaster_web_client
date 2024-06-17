@@ -1,0 +1,18 @@
+
+interfaces:
+  access:
+  - interface: "{{ipoe_acc_int}}"
+    ipv6: false
+    vlan-mode: "N:1"
+    type: "ipoe"
+    address: "{{ipoe_acc_address}}"
+    address-iter: "{{ipoe_acc_addess_iter}}"
+    gateway: "{{ipoe_acc_gateway}}"
+    stream-group-id: 400
+  network:
+  - address: '{{ipoe_nw_address_with_mask}}'
+    gateway: '{{ipoe_nw_gateway}}'
+    gateway-resolve-wait: false
+    interface: "{{ipoe_nw_interface}}"
+sessions: 
+  count: {{session_count}}

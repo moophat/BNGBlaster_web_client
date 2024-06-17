@@ -1,0 +1,12 @@
+---
+hoand_bras_pppoe:
+  ppp_mru: '1492'
+  ppp_passwd: svtech@123
+  ppp_retry: '30'
+  ppp_timeout: '2'
+  ppp_user: testlab{session-global}
+  pppoe_reconnect: 'true'
+  pppoe_session: '5'
+  pppoe_session_time: '0'
+  template: bras_pppoe.j2
+

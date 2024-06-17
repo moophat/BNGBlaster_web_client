@@ -1,0 +1,14 @@
+interfaces:
+  access:
+  - authentication-protocol: '{{interfaces_access_authentication_protocol}}'
+    interface: '{{interfaces_access_interface}}'
+    outer-vlan: {{interfaces_access_outer_vlan}}
+    stream-group-id: {{interfaces_access_stream_group_id}}
+    vlan-mode: 'N:{{interfaces_access_vlan_mode}}'
+  network:
+  - address: '{{interfaces_network_address}}'
+    address-ipv6: '{{interfaces_network_address_ipv6}}'
+    gateway: '{{interfaces_network_gateway}}'
+    gateway-ipv6: '{{interfaces_network_gateway_ipv6}}'
+    interface: '{{interfaces_network_interface}}'
+    vlan: {{interfaces_network_vlan}}

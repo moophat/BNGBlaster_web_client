@@ -1,0 +1,6 @@
+---
+interfaces:
+  network:
+  - address: 10.249.0.2/30
+    gateway: 10.249.0.1
+    interface: ens4.100
