@@ -1,9 +1,5 @@
 import streamlit as st
-from jnpr.junos import Device
-from jnpr.junos.utils.config import Config
-from lxml import etree
-import argparse
-import string
+# import string
 import os, re
 import time
 import requests
@@ -15,7 +11,7 @@ import pandas as pd
 import streamlit_authenticator as stauth
 from streamlit_ace import st_ace
 from streamlit_authenticator.utilities.hasher import Hasher
-from streamlit_tree_select import tree_select #pip install streamlit-tree-select
+# from streamlit_tree_select import tree_select #pip install streamlit-tree-select
 st.set_page_config(layout= 'wide', page_title= 'BNG Blaster', page_icon= ':cityscape:')
 font_css = """
 <style>
@@ -190,13 +186,33 @@ def gif(gif_path):
     # )
 #############################################################################
 
-path_bgp_update="/home/juniper/bngblaster/bgp_update"
-path_configs="/home/juniper/bngblaster/configs"
-path_templates="/home/juniper/bngblaster/templates"
-path_templates_part="/home/juniper/bngblaster/templates_part"
-path_templates_streams="/home/juniper/bngblaster/templates_streams"
-path_templates_interfaces="/home/juniper/bngblaster/templates_interfaces"
+# path_bgp_update="/home/juniper/bngblaster/bgp_update"
+# path_configs="/home/juniper/bngblaster/configs"
+# path_templates="/home/juniper/bngblaster/templates"
+# path_templates_part="/home/juniper/bngblaster/templates_part"
+# path_templates_streams="/home/juniper/bngblaster/templates_streams"
+# path_templates_interfaces="/home/juniper/bngblaster/templates_interfaces"
 
+## Read VAR_PATH from env 
+if "STREAMLIT_CONFIG" in os.environ:
+    file_path= os.environ['STREAMLIT_CONFIG']
+else:
+    file_path = "./default_variable.yml"
+print(f"STREAMLIT_CONFIG IS {file_path}")
+## read file yaml config
+def read_config_yaml(file_path):
+    with open(file_path, 'r') as yaml_file:
+        config_data = yaml.safe_load(yaml_file)
+        return config_data
+config= read_config_yaml(file_path)
+path_bgp_update= config.get('path').get('path_bgp_update')
+path_configs=config.get('path').get('path_configs')
+path_templates=config.get('path').get('path_templates')
+path_templates_part=config.get('path').get('path_templates_part')
+path_templates_streams=config.get('path').get('path_templates_streams')
+path_templates_interfaces=config.get('path').get('path_templates_interfaces')
+
+## Payload for REST API 
 payload_command_session_counters="""
 {
     "command": "session-counters"
@@ -1539,7 +1555,7 @@ if st.session_state.p4:
                                     """%name_bgp_update
                                     if prefix and num_prefix:
                                         # subprocess.run(["bgpupdate","-f", "%s.bgp"%instance,"-a", run_template[instance]['local_as'], "-n",run_template[instance]['bgp_local_address'], "-p", prefix, "-P",num_prefix,"-f", "withdraw.bgp","--withdraw"], capture_output=True, text=True)
-                                        result = subprocess.run(["bgpupdate","-f", "./bgp_update/%s.bgp"%name_bgp_update,"-a", run_template[instance]['local_as'], "-n",run_template[instance]['bgp_local_address'], "-p", prefix, "-P",num_prefix], capture_output=True, text=True)
+                                        result = subprocess.run(["bgpupdate","-f", "./bgp_update/%s.bgp"%name_bgp_update,"-a", run_template[instance]['bgp_local_as'], "-n",run_template[instance]['bgp_local_address'], "-p", prefix, "-P",num_prefix], capture_output=True, text=True)
                                         if 'error' not in str(result):
                                             # send_file = push_file_to_server_rest_api(blaster_server['ip'], '5000', './bgp_update/%s.bgp'%name_bgp_update)
                                             push_file_to_server_by_ftp(blaster_server['ip'],dict_blaster_db_format[blaster_server['ip']]['user'], dict_blaster_db_format[blaster_server['ip']]['passwd'],f"{path_bgp_update}/{name_bgp_update}.bgp", f'/var/bngblaster/uploads/{name_bgp_update}.bgp')
@@ -1569,7 +1585,7 @@ if st.session_state.p4:
                                     }
                                     """%name_bgp_update_wd
                                     if prefix_wd and num_prefix_wd:
-                                        result_wd= subprocess.run(["bgpupdate","-a", run_template[instance]['local_as'], "-n",run_template[instance]['bgp_local_address'], "-p", prefix_wd, "-P",num_prefix_wd,"-f", "./bgp_update/%s.bgp"%name_bgp_update_wd,"--withdraw"], capture_output=True, text=True)
+                                        result_wd= subprocess.run(["bgpupdate","-a", run_template[instance]['bgp_local_as'], "-n",run_template[instance]['bgp_local_address'], "-p", prefix_wd, "-P",num_prefix_wd,"-f", "./bgp_update/%s.bgp"%name_bgp_update_wd,"--withdraw"], capture_output=True, text=True)
                                         if "error" not in str(result_wd):
                                             # send_file_wd = push_file_to_server_rest_api(blaster_server['ip'], '5000', './bgp_update/%s.bgp'%name_bgp_update_wd)
                                             push_file_to_server_by_ftp(blaster_server['ip'], dict_blaster_db_format[blaster_server['ip']]['user'],dict_blaster_db_format[blaster_server['ip']]['passwd'] ,f"{path_bgp_update}/{name_bgp_update_wd}.bgp", f'/var/bngblaster/uploads/{name_bgp_update_wd}.bgp')

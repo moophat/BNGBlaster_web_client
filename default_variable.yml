@@ -1,0 +1,7 @@
+path:
+  path_bgp_update: "/home/juniper/bngblaster/bgp_update"
+  path_configs: "/home/juniper/bngblaster/configs"
+  path_templates: "/home/juniper/bngblaster/templates"
+  path_templates_part: "/home/juniper/bngblaster/templates_part"
+  path_templates_streams: "/home/juniper/bngblaster/templates_streams"
+  path_templates_interfaces: "/home/juniper/bngblaster/templates_interfaces"
