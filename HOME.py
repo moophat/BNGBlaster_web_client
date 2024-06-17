@@ -364,7 +364,7 @@ for i in list_streams:
         data=part.read()
     dict_streams_templates[i] = data
 # st.write(dict_streams_templates)
-################# Get list templates_streams ##########################################
+################# Get list templates_interfaces ##########################################
 list_interfaces_file= get_list_file(path_templates_interfaces, "j2")
 list_interfaces=[]
 for i in list_interfaces_file:
@@ -748,20 +748,20 @@ if st.session_state.p3:
                                         for var in eval(f"list_var_{i}"):
                                             if var.endswith('interface'):
                                                 with st.container(border= True):
-                                                    st.write(f":orange[{s}/{i}/{var}]")
+                                                    st.write(f":orange[{s}/{i}/**{var}**]")
                                                     with st.container(border= True):
                                                         col_int1, col_int2 = st.columns([1.2,1])
                                                         with col_int1:
-                                                            interface = st.selectbox(f":green[{s}/{i}/interface]", find_interface(blaster_server['ip'],dict_blaster_db_format[blaster_server['ip']]['user'], dict_blaster_db_format[blaster_server['ip']]['passwd']) )
+                                                            interface = st.selectbox(f":green[interface]", find_interface(blaster_server['ip'],dict_blaster_db_format[blaster_server['ip']]['user'], dict_blaster_db_format[blaster_server['ip']]['passwd']), key = f"{s}/{var}/{i}/interface" )
                                                         with col_int2:
-                                                            vlan = st.text_input(f":green[{s}/{i}/vlan]")
+                                                            vlan = st.text_input(f":green[vlan]", key=f"{s}/{var}/{i}/vlan")
                                                 if vlan == "":
                                                     exec(f"""{s}_content['{var}']= interface """)
                                                 else:
                                                     exec(f"""{s}_content['{var}']= interface +'.'+ vlan""")
                                             else:
                                                 with st.container(border= True):
-                                                    exec(f"""{s}_content['{var}'] = st.text_input(f":orange[{s}/stream_{i}]/:orange[{var}]")""")
+                                                    exec(f"""{s}_content['{var}'] = st.text_input(f":orange[{s}/{i}/**{var}**]")""")
                                         environment = Environment(loader=FileSystemLoader(f"{path_templates_interfaces}"))
                                         template = environment.get_template(f"{s}.j2")
                                         content= template.render(eval(f"{s}_content"))
@@ -783,20 +783,20 @@ if st.session_state.p3:
                                         for var in eval(f"list_var_{i}"):
                                             if var.endswith('interface'):
                                                 with st.container(border= True):
-                                                    st.write(f":orange[{s}/{i}/{var}]")
+                                                    st.write(f":orange[{s}/{i}/**{var}**]")
                                                     with st.container(border= True):
                                                         col_int1, col_int2 = st.columns([1.2,1])
                                                         with col_int1:
-                                                            interface = st.selectbox(f":green[{s}/{i}/interface]", find_interface(blaster_server['ip'],dict_blaster_db_format[blaster_server['ip']]['user'], dict_blaster_db_format[blaster_server['ip']]['passwd']) )
+                                                            interface = st.selectbox(f":green[interface]", find_interface(blaster_server['ip'],dict_blaster_db_format[blaster_server['ip']]['user'], dict_blaster_db_format[blaster_server['ip']]['passwd']), key =f"{s}/{var}/{i}/interface" )
                                                         with col_int2:
-                                                            vlan = st.text_input(f":green[{s}/{i}/vlan]")
+                                                            vlan = st.text_input(f":green[vlan]", key=f"{s}/{var}/{i}/vlan")
                                                 if vlan == "":
                                                     exec(f"""{s}_content['{var}']= interface """)
                                                 else:
                                                     exec(f"""{s}_content['{var}']= interface +'.'+ vlan""")
                                             else:
                                                 with st.container(border= True):
-                                                    exec(f"""{s}_content['{var}'] = st.text_input(f":orange[{s}/stream_{i}]/:orange[{var}]")""")
+                                                    exec(f"""{s}_content['{var}'] = st.text_input(f":orange[{s}/{i}/**{var}**]")""")
                                         environment = Environment(loader=FileSystemLoader(f"{path_templates_interfaces}"))
                                         template = environment.get_template(f"{s}.j2")
                                         content= template.render(eval(f"{s}_content"))
@@ -825,7 +825,7 @@ if st.session_state.p3:
                                         exec(f"list_var_{i} = get_variables_jinja_file(f'{path_templates_streams}/{s}.j2')")
                                         exec(f"{s}_content = dict()")
                                         for var in eval(f"list_var_{i}"):
-                                            exec(f"""{s}_content['{var}'] = st.text_input(f":orange[{s}/stream_{i}]/:orange[{var}]")""")
+                                            exec(f"""{s}_content['{var}'] = st.text_input(f":orange[{s}/stream_{i}/**{var}**]")""")
                                         environment = Environment(loader=FileSystemLoader(f"{path_templates_streams}"))
                                         template = environment.get_template(f"{s}.j2")
                                         content= template.render(eval(f"{s}_content"))
@@ -841,7 +841,7 @@ if st.session_state.p3:
                                         exec(f"list_var_{i} = get_variables_jinja_file(f'{path_templates_streams}/{s}.j2')")
                                         exec(f"{s}_content = dict()")
                                         for var in eval(f"list_var_{i}"):
-                                            exec(f"""{s}_content['{var}'] = st.text_input(f":orange[{s}/stream_{i}]/:orange[{var}]")""")
+                                            exec(f"""{s}_content['{var}'] = st.text_input(f":orange[{s}/stream_{i}/**{var}**]")""")
                                         environment = Environment(loader=FileSystemLoader(f"{path_templates_streams}"))
                                         template = environment.get_template(f"{s}.j2")
                                         content= template.render(eval(f"{s}_content"))
@@ -1005,7 +1005,7 @@ if st.session_state.p3:
                                         with st.popover(f":orange[interfaces_{key}_{i}]", use_container_width=True):
                                             list_input= edit_interfaces_input['interfaces'][key][i].keys()
                                             for j in list_input:
-                                                exec(f"""temp_edit_interfaces['{j}'] = st.text_input(f":orange[interaces_{key}_{i}]/:orange[{j}]", edit_interfaces_input['interfaces'][key][i]['{j}'])""")
+                                                exec(f"""temp_edit_interfaces['{j}'] = st.text_input(f":orange[interaces_{key}_{i}]/:orange[**{j}**]", edit_interfaces_input['interfaces'][key][i]['{j}'])""")
                                         eval(f"edit_interfaces_{key}.append(temp_edit_interfaces)")
                                         if i == (len(edit_interfaces_input['interfaces'][key])-1):
                                             exec(f"dict_edit_interfaces[key] = edit_interfaces_{key}")
@@ -1029,7 +1029,7 @@ if st.session_state.p3:
                                         with st.popover(f":orange[interfaces_{key}_{i}]", use_container_width=True):
                                             list_input= edit_interfaces_input['interfaces'][key][i].keys()
                                             for j in list_input:
-                                                exec(f"""temp_edit_interfaces['{j}'] = st.text_input(f":orange[interaces_{key}_{i}]/:orange[{j}]", edit_interfaces_input['interfaces'][key][i]['{j}'])""")
+                                                exec(f"""temp_edit_interfaces['{j}'] = st.text_input(f":orange[interaces_{key}_{i}]/:orange[**{j}**]", edit_interfaces_input['interfaces'][key][i]['{j}'])""")
                                         eval(f"edit_interfaces_{key}.append(temp_edit_interfaces)")
                                         if i == (len(edit_interfaces_input['interfaces'][key])-1):
                                             exec(f"dict_edit_interfaces[key] = edit_interfaces_{key}")
@@ -1062,7 +1062,7 @@ if st.session_state.p3:
                                 with st.popover(f":orange[stream_{i}]", use_container_width=True):
                                     list_input= edit_streams_input['streams'][i].keys()
                                     for j in list_input:
-                                        exec(f"""temp_edit_streams['{j}'] = st.text_input(f":orange[streams_{i}]/:orange[{j}]", edit_streams_input['streams'][i]['{j}'])""")
+                                        exec(f"""temp_edit_streams['{j}'] = st.text_input(f":orange[streams_{i}]/:orange[**{j}**]", edit_streams_input['streams'][i]['{j}'])""")
                                 edit_streams.append(temp_edit_streams)
                         with col2:
                             for i in range(index_col+1,len(edit_streams_input['streams'])):
@@ -1070,7 +1070,7 @@ if st.session_state.p3:
                                 with st.popover(f":orange[stream_{i}]", use_container_width=True):
                                     list_input= edit_streams_input['streams'][i].keys()
                                     for j in list_input:
-                                        exec(f"""temp_edit_streams['{j}'] = st.text_input(f":orange[streams_{i}]/:orange[{j}]", edit_streams_input['streams'][i]['{j}'])""")
+                                        exec(f"""temp_edit_streams['{j}'] = st.text_input(f":orange[streams_{i}]/:orange[**{j}**]", edit_streams_input['streams'][i]['{j}'])""")
                                 edit_streams.append(temp_edit_streams)
                 ###### Convert value of streams to int #############################
                 for i in edit_streams:
@@ -1147,11 +1147,11 @@ if st.session_state.p3:
             with st.container(border= True):
                 st.subheader(':sunny: :green[YOUR SELECTION]')
                 import_radio = st.radio(
-                    ":violet[Select protocols template or streams template]",
-                    [":orange[Protocols]", ":orange[Streams]"],
+                    ":violet[SELECT KIND OF TEMPLATES BELOW]",
+                    [":orange[PROTOCOLS]", ":orange[INTERFACES]", ":orange[STREAMS]"],
                     index=None,
                 )
-            if import_radio == ":orange[Protocols]":
+            if import_radio == ":orange[PROTOCOLS]":
                 col1_template, col2_template = st.columns([1.25,1])
                 with col2_template:
                     with st.container(border=True, height=630):
@@ -1166,7 +1166,7 @@ if st.session_state.p3:
                                     with open(f"{path_templates}/{protocols_file_import.name}", 'w') as jinja:
                                         jinja.write(string_data)
                                         st.info(':blue[Upload template %s successfully]'%protocols_file_import.name, icon="🔥")
-                                        log_authorize(st.session_state.user, f'Import template file {protocols_file_import.name}')
+                                        log_authorize(st.session_state.user, f'Import protocols template file {protocols_file_import.name}')
                                 else:
                                     st.error('Duplicate name file, change your file name and try again', icon="🚨")
                             else:
@@ -1200,7 +1200,56 @@ if st.session_state.p3:
                                 os.remove(f"{path_templates}/{template_edit}")
                                 st.info(':blue[Delete successfully]', icon="🔥")
                                 st.rerun()
-            if import_radio == ":orange[Streams]":
+            if import_radio == ":orange[INTERFACES]":
+                col1_template, col2_template = st.columns([1.25,1])
+                with col2_template:
+                    with st.container(border=True, height=630):
+                        st.subheader(':desktop_computer: :green[IMPORT INTERFACES TEMPLATE]')
+                        st.write(':violet[Upload interfaces template]')
+                        protocols_file_import = st.file_uploader("Choose a Template file", accept_multiple_files=False)
+                        if protocols_file_import:
+                            if protocols_file_import.name[-3:] == '.j2':
+                                stringio = StringIO(protocols_file_import.getvalue().decode("utf-8"))
+                                string_data = stringio.read() 
+                                if protocols_file_import.name not in list_templates:
+                                    with open(f"{path_templates_interfaces}/{protocols_file_import.name}", 'w') as jinja:
+                                        jinja.write(string_data)
+                                        st.info(':blue[Upload template %s successfully]'%protocols_file_import.name, icon="🔥")
+                                        log_authorize(st.session_state.user, f'Import interfaces template file {protocols_file_import.name}')
+                                else:
+                                    st.error('Duplicate name file, change your file name and try again', icon="🚨")
+                            else:
+                                st.error('Upload file with .j2 , please. No accept other types ', icon="🚨")
+                        else:
+                            st.info(':blue[Select file upload]', icon="🔥")
+                with col1_template:
+                    with st.container(border=True):
+                        st.subheader(':memo: :green[EDIT INTERFACES TEMPLATE]')
+                        template_edit = st.selectbox(':orange[Select your template for editing]?', list_interfaces, placeholder = 'Select one template')
+                        with open(f"{path_templates_interfaces}/{template_edit}.j2", "r") as view:
+                            cont1= view.read()
+                        with st.container(border=True):
+                            edit_template_text = st_ace(
+                            value= cont1,
+                            language= 'yaml', 
+                            theme= '', 
+                            show_gutter= True, 
+                            keybinding='vscode', 
+                            auto_update= True, 
+                            placeholder= '*Edit your template*',
+                            height=350)
+                        col100, col101, col102 =st.columns([1,2,1])
+                        with col100:
+                            if st.button("SAVE", type = 'primary', use_container_width= True):
+                                with open(f"{path_templates_interfaces}/{template_edit}.j2", "w") as write:
+                                    write.write(edit_template_text)
+                                st.toast(f':blue[Save your template **{template_edit}** successfully]', icon="🔥")
+                        with col102:
+                            if st.button("DELETE", use_container_width= True):
+                                os.remove(f"{path_templates_interfaces}/{template_edit}.j2")
+                                st.info(':blue[Delete successfully]', icon="🔥")
+                                st.rerun()
+            if import_radio == ":orange[STREAMS]":
                 col1_template, col2_template = st.columns([1.25,1])
                 with col2_template:
                     with st.container(border=True, height=630):
@@ -1249,7 +1298,7 @@ if st.session_state.p3:
                                 os.remove(f"{path_templates_streams}/{template_edit}.j2")
                                 st.info(':blue[Delete successfully]', icon="🔥")
                                 st.rerun()
-            if import_radio == ":orange[Protocols]":
+            if import_radio == ":orange[PROTOCOLS]":
                 with st.container(border= True):
                     st.subheader(':package: :green[BUILD YOUR PROTOCOLS TEMPLATE]')
                     # st.write(list_part)
@@ -1309,8 +1358,69 @@ if st.session_state.p3:
                                 file.write(output_str)
                             st.code(output_str)
                         else:
-                            st.error("Select below first", icon="🚨")
-            if import_radio == ":orange[Streams]":
+                            st.error("Select above first", icon="🚨")
+            if import_radio == ":orange[INTERFACES]":
+                with st.container(border= True):
+                    st.subheader(':package: :green[BUILD YOUR INTERFACES TEMPLATE]')
+                    # st.write(list_interfaces)
+                    output_str=""
+                    st.write(":violet[Select your pieces of your template]")
+                    with st.container(border=True):
+                        col1_temp, col2_temp = st.columns([1,1])
+                        index_temp = int(len(list_interfaces)/2)
+                        with col1_temp:
+                            for i in list_interfaces[0:index_temp+1]:
+                                with st.container(border=True):
+                                    if eval(f"st.checkbox(':orange[**{i}**]', key='{i}')"):
+                                        with eval(f"st.expander(':green[Edit **{i}** pieces]')"):
+                                            add_part= st_ace(
+                                            value= dict_interfaces_templates[i],
+                                            language= 'yaml', 
+                                            theme= '', 
+                                            show_gutter= True, 
+                                            keybinding='vscode', 
+                                            auto_update= True, 
+                                            placeholder= '*Edit your template*', 
+                                            height= 300,
+                                            key= list_interfaces.index(i))
+                                            #########################################
+                                            output_str += '\n' + add_part
+                        with col2_temp:
+                            for i in list_interfaces[index_temp+1:len(list_interfaces)+1]:
+                                with st.container(border=True):
+                                    if eval(f"st.checkbox(':orange[**{i}**]', key='{i}')"):
+                                        with eval(f"st.expander(':green[Edit **{i}** pieces]')"):
+                                            add_part= st_ace(
+                                            value= dict_interfaces_templates[i],
+                                            language= 'yaml', 
+                                            theme= '', 
+                                            show_gutter= True, 
+                                            keybinding='vscode', 
+                                            auto_update= True, 
+                                            placeholder= '*Edit your template*', 
+                                            height= 300,
+                                            key= list_interfaces.index(i))
+                                            #########################################
+                                            output_str += '\n' + add_part
+                        name_template = st.text_input(':violet[Input your name of new template]')
+                        if (f"{name_template}") in list_interfaces:
+                            st.error('Name existed, try other name', icon="🚨")
+                            st.session_state.save_template= True
+                        else:
+                            if name_template == "":
+                                st.warning("Name can not null", icon="🔥")
+                                st.session_state.save_template= True
+                            else:
+                                st.info("You can use this name", icon="🔥")
+                                st.session_state.save_template= False
+                    if st.button("**SAVE**", type= 'primary', disabled= st.session_state.save_template):
+                        if output_str != "":
+                            with open(f"{path_templates_interfaces}/{name_template}.j2", 'w') as file:
+                                file.write(output_str)
+                            st.code(output_str)
+                        else:
+                            st.error("Select above first", icon="🚨")
+            if import_radio == ":orange[STREAMS]":
                 with st.container(border= True):
                     st.subheader(':package: :green[BUILD YOUR STREAMS TEMPLATE]')
                     # st.write(list_part)
@@ -1370,7 +1480,7 @@ if st.session_state.p3:
                                 file.write(streams_output_str)
                             st.code(streams_output_str)
                         else:
-                            st.error("Select below first", icon="🚨")
+                            st.error("Select above first", icon="🚨")
 if st.session_state.p4:
     st.title(':infinity: :rainbow[RUN BLASTER]')
     col41, col42 ,col43 =st.columns([19,0.9,0.9])
