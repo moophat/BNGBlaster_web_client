@@ -4,3 +4,4 @@ streamlit-ace==0.1.1
 streamlit-authenticator==0.3.2
 pandas==2.1.1
 requests==2.27.1
+pexpect==4.8.0
