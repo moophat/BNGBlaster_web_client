@@ -4,14 +4,11 @@ RUN apt-get update -y \
     && apt-get install -y --no-install-recommends libc6-dev make dpkg-dev git openssh-client iputils-ping vim sqlite3\
     && apt-get clean all \
     && rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
-ARG git_token
-ARG user_email
-ARG user_name
 
 #########git clone#########
 
 # # Clone the conf files into the docker container
-RUN /usr/bin/git clone -n --depth=1 --filter=tree:0 --no-checkout --branch main https://$git_token@github.com/moophat/BNGBlaster_web_client.git
+RUN /usr/bin/git clone --branch main https://github.com/moophat/BNGBlaster_web_client.git
 
 ########done git clone#########
 

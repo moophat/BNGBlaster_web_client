@@ -1,6 +1,0 @@
-jinja2schema==0.1.4
-streamlit==1.35.0
-streamlit-ace==0.1.1
-streamlit-authenticator==0.3.2
-pandas==2.1.1
-requests==2.27.1
