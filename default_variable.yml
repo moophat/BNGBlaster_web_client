@@ -1,7 +1,7 @@
 path:
-  path_bgp_update: "/home/juniper/bngblaster/bgp_update"
-  path_configs: "/home/juniper/bngblaster/configs"
-  path_templates: "/home/juniper/bngblaster/templates"
-  path_templates_part: "/home/juniper/bngblaster/templates_part"
-  path_templates_streams: "/home/juniper/bngblaster/templates_streams"
-  path_templates_interfaces: "/home/juniper/bngblaster/templates_interfaces"
+  path_bgp_update: "/BNGBlaster_web_client/bgp_update"
+  path_configs: "/BNGBlaster_web_client/configs"
+  path_templates: "/BNGBlaster_web_client/templates"
+  path_templates_part: "/BNGBlaster_web_client/templates_part"
+  path_templates_streams: "/BNGBlaster_web_client/templates_streams"
+  path_templates_interfaces: "/BNGBlaster_web_client/templates_interfaces"
