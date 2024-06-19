@@ -1,7 +1,7 @@
 FROM python:3.10.12-slim
 
 RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends libc6-dev make dpkg-dev git openssh-client iputils-ping vim sqlite3\
+    && apt-get install -y --no-install-recommends libc6-dev make dpkg-dev git openssh-client iputils-ping vim sqlite3 net-tools\
     && apt-get clean all \
     && rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
