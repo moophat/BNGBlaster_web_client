@@ -405,22 +405,29 @@ def execute_remote_command(host, username, command):
         print(f"Error executing command: {result.stderr.strip()}")
         return None
 def execute_remote_command_use_passwd(host, username, passwd , command):
-    import pexpect
-    ssh_command = f"ssh {username}@{host} {command}"
-    child = pexpect.spawn(ssh_command, encoding='utf-8')
-    # child.expect("(yes/no/[fingerprint])?")
-    # child.sendline('yes')
-    # child.expect("password:")
-    child.sendline(passwd)
-    # Capture the output
-    child.expect(pexpect.EOF)
-    output = child.before.splitlines()
-    # print(output)
-    filtered_output = [line for line in output if "@" not in line.lower()]
-    if len(filtered_output) > 1:
-        return filtered_output[1]
-    else:
-        return filtered_output[0]
+    import paramiko
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    try:
+        # Connect to the remote server
+        client.connect(host, username=username, password=passwd)
+        # Execute the command to check network interfaces
+        stdin, stdout, stderr = client.exec_command(f'{command}')
+        # Read the command output
+        output = stdout.read().decode()
+        error = stderr.read().decode()
+        if output:
+            line = output.split('\n')
+            for time in line:
+                if time != '':
+                    return time
+                else: continue
+        if error:
+            print(error)
+            return 0
+    finally:
+        # Close the connection
+        client.close()
 def find_sub_interface(host, username, password, interface):
     sub=''
     host = '10.99.94.2'
