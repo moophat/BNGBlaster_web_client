@@ -5,3 +5,7 @@ streamlit-authenticator==0.3.2
 pandas==2.1.1
 requests==2.27.1
 paramiko==2.11.0
+robotframework
+robotframework-SeleniumLibrary
+selenium
+coverage
