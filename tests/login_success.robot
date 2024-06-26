@@ -21,7 +21,7 @@ Stop the webserver
 
 
 *** Variables ***
-${URL}             http://localhost:8505/
+${URL}             http://localhost:8505/bngblaster
 ${BROWSER}         headlessfirefox
 ${USERNAME}        admin
 ${PASSWORD}        linhnt@123
