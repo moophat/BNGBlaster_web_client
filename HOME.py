@@ -417,6 +417,27 @@ def execute_remote_command_use_passwd(host, username, passwd , command):
         output = stdout.read().decode()
         error = stderr.read().decode()
         if output:
+            print("execute_remote_command_use_passwd() error %s"%output)
+            return output
+        if error:
+            print("execute_remote_command_use_passwd() error %s"%error)
+            return 0
+    finally:
+        # Close the connection
+        client.close()
+def execute_remote_command_use_passwd_get_time(host, username, passwd , command):
+    import paramiko
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    try:
+        # Connect to the remote server
+        client.connect(host, username=username, password=passwd)
+        # Execute the command to check network interfaces
+        stdin, stdout, stderr = client.exec_command(f'{command}')
+        # Read the command output
+        output = stdout.read().decode()
+        error = stderr.read().decode()
+        if output:
             line = output.split('\n')
             for time in line:
                 if time != '':
@@ -1615,8 +1636,31 @@ if st.session_state.p4:
                         st.info("You can start this instance", icon="🔥")
             with col19:
                 if st.button('**START** :arrow_forward: ', type = 'primary',use_container_width=True, disabled= st.session_state.button_start):
-                    # st.write('Traffic\'s running')
-                    # st.code(os.popen("netstat -i").read())
+                    # Get list interface "ens" from config and send remote set bng-blaster server
+                    if os.path.exists('%s/%s_interfaces.yml'%(path_configs,instance)):
+                        with open(f"{path_configs}/{instance}_interfaces.yml", "r") as interfaces_set:
+                            data_set = yaml.safe_load(interfaces_set.read())
+                        list_int_key = list(data_set['interfaces'].keys())
+                        int_list =[]
+                        if len(list_int_key) == 1:
+                            for i in data_set['interfaces'][list_int_key[0]]:
+                                try:
+                                    int_list.append(i['interface'])
+                                except:
+                                    continue
+                        else:
+                            for type_int in list_int_key:
+                                for i in data_set['interfaces'][type_int]:
+                                    try:
+                                        int_list.append(i['interface'])
+                                    except:
+                                        continue
+                        # st.write(int_list)
+                        for y in int_list:
+                            if "." in y:
+                                execute_remote_command_use_passwd(blaster_server['ip'], dict_blaster_db_format[blaster_server['ip']].get('user'), dict_blaster_db_format[blaster_server['ip']].get('passwd'), "sudo modprobe 8021q")
+                                execute_remote_command_use_passwd(blaster_server['ip'], dict_blaster_db_format[blaster_server['ip']].get('user'), dict_blaster_db_format[blaster_server['ip']].get('passwd'), f"sudo ip link add link {y.split('.')[0]} name {y} type vlan id {y.split('.')[1]}")
+                                execute_remote_command_use_passwd(blaster_server['ip'], dict_blaster_db_format[blaster_server['ip']].get('user'), dict_blaster_db_format[blaster_server['ip']].get('passwd'), f"sudo ip link set dev {y} up")
                     try:
                         exist_sc, exist_ct= CALL_API_BLASTER(blaster_server['ip'], blaster_server['port'], instance, 'GET', payload_start)
                         # st.write(exist_sc, exist_ct)
@@ -1724,7 +1768,7 @@ if st.session_state.p5:
     # run_report_sc, run_report = CALL_API_BLASTER(blaster_server['ip'], blaster_server['port'], f'{st.session_state.report}', 'GET', payload_start, '/run_report.json')
     run_report_sc, run_report = CALL_API_BLASTER(blaster_server['ip'], blaster_server['port'], instance_report, 'GET', payload_start, '/run_report.json')
     if run_report_sc == 200:
-        report_timestamp = execute_remote_command_use_passwd(blaster_server['ip'], dict_blaster_db_format[blaster_server['ip']].get('user'), dict_blaster_db_format[blaster_server['ip']].get('passwd'), f"stat --printf=%y /var/bngblaster/{instance_report}/config.json | cut -d. -f1")
+        report_timestamp = execute_remote_command_use_passwd_get_time(blaster_server['ip'], dict_blaster_db_format[blaster_server['ip']].get('user'), dict_blaster_db_format[blaster_server['ip']].get('passwd'), f"stat --printf=%y /var/bngblaster/{instance_report}/config.json | cut -d. -f1")
         st.info(f"*Last run: :orange[{report_timestamp}]*")
         report= json.loads(run_report)
         df= pd.DataFrame.from_dict(report, orient="index") # convert report to dataframe
