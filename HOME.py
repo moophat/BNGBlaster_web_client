@@ -477,7 +477,7 @@ def find_interface(hostname, username, password):
         # Connect to the remote server
         client.connect(hostname, username=username, password=password)
         # Execute the command to check network interfaces
-        stdin, stdout, stderr = client.exec_command('netstat -i | grep ens')
+        stdin, stdout, stderr = client.exec_command("netstat -i | grep -e ens -e eth")
         # Read the command output
         output = stdout.read().decode()
         error = stderr.read().decode()
@@ -489,7 +489,9 @@ def find_interface(hostname, username, password):
                 sub= i.split(' ')[0]
                 if ("." not in sub) and (sub != ""):
                     list_int_temp.append(sub) 
-            return set(list_int_temp)          
+            return set(list_int_temp)   
+        else:
+            return ['null']         
         if error:
             print(error)
     finally:
