@@ -43,13 +43,13 @@ def log_authorize(user, action):
 import yaml
 from yaml.loader import SafeLoader
 with open('authen/config.yaml') as file:
-    config = yaml.load(file, Loader=SafeLoader)
+    config_authen = yaml.load(file, Loader=SafeLoader)
 authenticator = stauth.Authenticate(
-    config['credentials'],
-    config['cookie']['name'],
-    config['cookie']['key'],
-    config['cookie']['expiry_days'],
-    config['preauthorized']
+    config_authen['credentials'],
+    config_authen['cookie']['name'],
+    config_authen['cookie']['key'],
+    config_authen['cookie']['expiry_days'],
+    config_authen['preauthorized']
 )
 colx, coly, colz = st.columns([1,1.8,1])
 with coly:
@@ -1232,7 +1232,7 @@ if st.session_state.p3:
                             theme= '', 
                             show_gutter= True, 
                             keybinding='vscode', 
-                            auto_update= True, 
+                            auto_update= False, 
                             placeholder= '*Edit your template*',
                             height=350)
                         col100, col101, col102 =st.columns([1,2,1])
@@ -1281,7 +1281,7 @@ if st.session_state.p3:
                             theme= '', 
                             show_gutter= True, 
                             keybinding='vscode', 
-                            auto_update= True, 
+                            auto_update= False, 
                             placeholder= '*Edit your template*',
                             height=350)
                         col100, col101, col102 =st.columns([1,2,1])
@@ -1330,7 +1330,7 @@ if st.session_state.p3:
                             theme= '', 
                             show_gutter= True, 
                             keybinding='vscode', 
-                            auto_update= True, 
+                            auto_update= False, 
                             placeholder= '*Edit your template*',
                             height=350)
                         col100, col101, col102 =st.columns([1,2,1])
@@ -1364,7 +1364,7 @@ if st.session_state.p3:
                                             theme= '', 
                                             show_gutter= True, 
                                             keybinding='vscode', 
-                                            auto_update= True, 
+                                            auto_update= False, 
                                             placeholder= '*Edit your template*', 
                                             height= 300,
                                             key= list_part.index(i))
@@ -1381,7 +1381,7 @@ if st.session_state.p3:
                                             theme= '', 
                                             show_gutter= True, 
                                             keybinding='vscode', 
-                                            auto_update= True, 
+                                            auto_update= False, 
                                             placeholder= '*Edit your template*', 
                                             height= 300,
                                             key= list_part.index(i))
@@ -1425,7 +1425,7 @@ if st.session_state.p3:
                                             theme= '', 
                                             show_gutter= True, 
                                             keybinding='vscode', 
-                                            auto_update= True, 
+                                            auto_update= False, 
                                             placeholder= '*Edit your template*', 
                                             height= 300,
                                             key= list_interfaces.index(i))
@@ -1442,7 +1442,7 @@ if st.session_state.p3:
                                             theme= '', 
                                             show_gutter= True, 
                                             keybinding='vscode', 
-                                            auto_update= True, 
+                                            auto_update= False, 
                                             placeholder= '*Edit your template*', 
                                             height= 300,
                                             key= list_interfaces.index(i))
@@ -1486,7 +1486,7 @@ if st.session_state.p3:
                                             theme= '', 
                                             show_gutter= True, 
                                             keybinding='vscode', 
-                                            auto_update= True, 
+                                            auto_update= False, 
                                             placeholder= '*Edit your template*', 
                                             height= 300,
                                             key= list_streams.index(i))
@@ -1503,7 +1503,7 @@ if st.session_state.p3:
                                             theme= '', 
                                             show_gutter= True, 
                                             keybinding='vscode', 
-                                            auto_update= True, 
+                                            auto_update= False, 
                                             placeholder= '*Edit your template*', 
                                             height= 300,
                                             key= list_streams.index(i))
@@ -1927,7 +1927,7 @@ if st.session_state.p2:
             try:
                 if authenticator.reset_password(st.session_state["username"], fields= {'Form name': ':herb: :orange[CHANGE YOUR PASSWORD]', 'Reset':':herb: :blue[**CHANGE**]'}):
                     with open('authen/config.yaml', 'w') as file:
-                        yaml.dump(config, file, default_flow_style=False)
+                        yaml.dump(config_authen, file, default_flow_style=False)
                     st.success('Password modified successfully')
             except Exception as e:
                 st.error(f'Your password incorrect. Error: {e}', icon="🚨")

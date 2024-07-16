@@ -24,7 +24,7 @@ Stop the webserver
 ${URL}             http://localhost:8505/bngblaster
 ${BROWSER}         headlessfirefox
 ${USERNAME}        admin
-${PASSWORD}        admin@123
+${PASSWORD}        admin@12345
 
 *** Test Cases ***
 login fail test

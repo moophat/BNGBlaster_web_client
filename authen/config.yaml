@@ -9,9 +9,10 @@ credentials:
       failed_login_attempts: 0
       logged_in: false
       name: Admin
-      password: $2b$12$b3VR1O1FLVOgSUZy6k7KT.Hy6i6dLMHAB3qw3L1OZTQLSd6uHLp8i
+      password: $2b$12$JA/yLgkDSxFX2VZLYHWDluHbmvb51VFsR7P2bF0NtK344Oguk5N3e
     hoanguyen:
       email: hoa.nguyen@svtech.com.vn
+      failed_login_attempts: 0
       logged_in: false
       name: Hoa Nguyen
       password: $2b$12$t.m1k8Ebq7A4aOSQSg8llOBVZxA43ehXEocOwSXh6t17S3ffmzn9y
