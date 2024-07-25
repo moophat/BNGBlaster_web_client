@@ -1,0 +1,13 @@
+version: '3'
+services:
+  bngblaster_apps:
+    container_name: bngblaster_application
+    image: ghcr.io/moophat/moophat/bngblaster_web_client:latest
+    ports:
+      - 8505:8505
+    restart: always
+    volumes:
+      - bngblaster_data:/BNGBlaster_web_client
+
+volumes:
+  bngblaster_data:

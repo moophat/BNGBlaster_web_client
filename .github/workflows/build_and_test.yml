@@ -54,7 +54,9 @@ jobs:
     - name: Push image to GitHub Container Registry
       run: |
         docker tag my-streamlit-app:latest ghcr.io/${{ github.repository_owner }}/${{ env.REPO }}:v1.${{ github.run_number }}
+        docker tag my-streamlit-app:latest ghcr.io/${{ github.repository_owner }}/${{ env.REPO }}:latest
         docker push ghcr.io/${{ github.repository_owner }}/${{ env.REPO }}:v1.${{ github.run_number }}
+        docker push ghcr.io/${{ github.repository_owner }}/${{ env.REPO }}:latest
     - name: Stop and remove container
       if: always()
       run: docker rm -f streamlit-container

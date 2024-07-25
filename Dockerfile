@@ -1,5 +1,9 @@
 FROM python:3.10.12-slim
 
+LABEL org.opencontainers.image.source=https://github.com/moophat/BNGBlaster_web_client.git
+
+LABEL maintainer "linhnt-hub"
+
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends libc6-dev make dpkg-dev git openssh-client iputils-ping vim sqlite3 net-tools\
     && apt-get clean all \
