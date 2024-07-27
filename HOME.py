@@ -637,6 +637,7 @@ if st.session_state.p1:
                             sqlite_insert_blaster(conn, blaster_new_ip, blaster_new_port, blaster_new_user, blaster_new_passwd)
                             conn.close()
                             st.info(":green[Add successfully]")
+                            st.rerun()
             log_authorize(st.session_state.user, f'Select BNG-Blaster {st.session_state.ip_blaster}')
 ################################ LIST ALL INSTANCES (RUNNING +STOP) SERVER #############
 blaster_server = {
