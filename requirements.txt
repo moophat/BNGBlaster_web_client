@@ -9,3 +9,4 @@ robotframework
 robotframework-SeleniumLibrary
 selenium
 coverage
+scapy
